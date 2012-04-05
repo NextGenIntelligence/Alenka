@@ -259,7 +259,7 @@ long long int pfor_dict_decompress(void* compressed, char** h_columns, char** d_
     thrust::device_ptr<unsigned long long int> dest = thrust::device_malloc<unsigned long long int>(orig_recCount);
 
 
-    thrust::counting_iterator<unsigned int, thrust::device_space_tag> begin(0);
+    thrust::counting_iterator<unsigned int, thrust::device_system_tag> begin(0);
     decompress_functor_int ff1(raw_decomp,(int_type*)thrust::raw_pointer_cast(dest), (long long int*)s_v, (unsigned int*)d_v);
     thrust::for_each(begin, begin + orig_recCount, ff1);
 
@@ -360,7 +360,7 @@ long long int pfor_decompress(void* destination, void* host, unsigned int* mRecC
     dd_v[2] = bit_count;	
 	
 
-    thrust::counting_iterator<unsigned int, thrust::device_space_tag> begin(0);
+    thrust::counting_iterator<unsigned int, thrust::device_system_tag> begin(0);
     if(tp == 0) {
         decompress_functor_int ff1(raw_decomp,(int_type*)destination, (long long int*)s_v, (unsigned int*)d_v);
         thrust::for_each(begin, begin + orig_recCount, ff1);
@@ -445,7 +445,7 @@ unsigned long long int pfor_delta_compress(void* source, unsigned int source_len
 		    bits = 1;		
     };
 
-    thrust::counting_iterator<unsigned int, thrust::device_space_tag> begin(0);
+    thrust::counting_iterator<unsigned int, thrust::device_system_tag> begin(0);
 
     fit_count = bit_count/bits;
     void* d_v;
@@ -623,7 +623,7 @@ unsigned long long int pfor_dict_compress(char** d_columns, unsigned int mColumn
     dd_v[1] = fit_count;
     dd_v[2] = 64;
 
-    thrust::counting_iterator<unsigned int, thrust::device_space_tag> begin(0);
+    thrust::counting_iterator<unsigned int, thrust::device_system_tag> begin(0);
 
     void* d;
     CUDA_SAFE_CALL(cudaMalloc((void **) &d, source_len*float_size));
@@ -787,7 +787,7 @@ unsigned long long int pfor_compress(void* source, unsigned int source_len, char
         bits = (unsigned int)ceil(log2((double)((orig_upper_val - orig_lower_val) + 1)));
     };	
 	
-    thrust::counting_iterator<unsigned int, thrust::device_space_tag> begin(0);
+    thrust::counting_iterator<unsigned int, thrust::device_system_tag> begin(0);
 
     fit_count = bit_count/bits;
     void* d_v;

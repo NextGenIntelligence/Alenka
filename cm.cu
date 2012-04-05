@@ -71,10 +71,10 @@ bool buffersEmpty = 0;
 
 const double gpu_mem = 0.7;  // amount of gpu memory used to keep the record sets. The rest is used as tmp space
 
-map<string,queue<string>> top_type;
-map<string,queue<string>> top_value;
-map<string,queue<int_type>> top_nums;
-map<string,queue<float_type>> top_nums_f;	
+map<string,queue<string> > top_type;
+map<string,queue<string> > top_value;
+map<string,queue<int_type> > top_nums;
+map<string,queue<float_type> > top_nums_f;	
 
 
 template <typename HeadFlagType>
